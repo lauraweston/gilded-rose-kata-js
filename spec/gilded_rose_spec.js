@@ -54,6 +54,11 @@ describe("Gilded Rose", function () {
       updateQuality();
       expect(items[0].quality).toEqual(1);
     });
+    it("should not allow an item to have a quality value greater than 50", function() {
+      items.push(new Item("Aged Brie", 2, 50));
+      updateQuality();
+      expect(items[0].quality).toEqual(50);
+    });
   });
 
 });
