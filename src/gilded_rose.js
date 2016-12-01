@@ -39,7 +39,7 @@ function updateQuality() {
         if (item.name != backstagePass) {
           if (item.quality > 0 && item.name != sulfuras) decrementQuality(item);
         } else {
-          item.quality = item.quality - item.quality
+          item.quality = 0; 
         }
       } else {
         if (item.quality < 50) incrementQuality(item);
