@@ -31,39 +31,47 @@ describe("Gilded Rose", function () {
       items.length = 0;
     });
 
-    it("should decrease sellIn and quality values by 1", function () {
-      items.push(new Item("foo", 5, 5));
-      updateQuality();
-      expect(items[0].quality).toEqual(4);
-      expect(items[0].sellIn).toEqual(4);
+    describe("Regular items", function () {
+      it("should decrease sellIn and quality values by 1", function () {
+        items.push(new Item("foo", 5, 5));
+        updateQuality();
+        expect(items[0].quality).toEqual(4);
+        expect(items[0].sellIn).toEqual(4);
+      });
+
+      it("should decrease quality value by 2 when the sell by date has passed", function () {
+        items.push(new Item("foo", 0, 5));
+        updateQuality();
+        expect(items[0].quality).toEqual(3);
+      });
+
+      it("should not allow the quality value to be negative", function () {
+        items.push(new Item("foo", 0, 0));
+        updateQuality();
+        expect(items[0].quality).toEqual(0);
+      });
     });
 
-    it("should decrease quality value by 2 when the sell by date has passed", function () {
-      items.push(new Item("foo", 0, 5));
-      updateQuality();
-      expect(items[0].quality).toEqual(3);
+    describe("Aged Brie", function () {
+      it("should increase the quality of Aged Brie as it gets older", function () {
+        items.push(new Item("Aged Brie", 2, 0));
+        updateQuality();
+        expect(items[0].quality).toEqual(1);
+      });
+      it("should not allow an item to have a quality value greater than 50", function () {
+        items.push(new Item("Aged Brie", 2, 50));
+        updateQuality();
+        expect(items[0].quality).toEqual(50);
+      });
     });
 
-    it("should not allow the quality value to be negative", function () {
-      items.push(new Item("foo", 0, 0));
-      updateQuality();
-      expect(items[0].quality).toEqual(0);
-    });
-    it("should increase the quality of Aged Brie as it gets older", function () {
-      items.push(new Item("Aged Brie", 2, 0));
-      updateQuality();
-      expect(items[0].quality).toEqual(1);
-    });
-    it("should not allow an item to have a quality value greater than 50", function () {
-      items.push(new Item("Aged Brie", 2, 50));
-      updateQuality();
-      expect(items[0].quality).toEqual(50);
-    });
-    it("should never change the quality or sellIn of Sulfuras", function () {
-      items.push(new Item("Sulfuras, Hand of Ragnaros", 2, 80));
-      updateQuality();
-      expect(items[0].quality).toEqual(80);
-      expect(items[0].sellIn).toEqual(2);
+    describe("Sulfuras", function () {
+      it("should never change the quality or sellIn value", function () {
+        items.push(new Item("Sulfuras, Hand of Ragnaros", 2, 80));
+        updateQuality();
+        expect(items[0].quality).toEqual(80);
+        expect(items[0].sellIn).toEqual(2);
+      });
     });
 
     describe("Backstage passes", function () {
@@ -86,13 +94,11 @@ describe("Gilded Rose", function () {
         expect(items[0].quality).toEqual(3);
         expect(items[1].quality).toEqual(3);
       });
-      it("should drop the quality to 0 after the concert", function() {
+      it("should drop the quality to 0 after the concert", function () {
         items.push(new Item("Backstage passes to a TAFKAL80ETC concert", 0, 5));
         updateQuality();
         expect(items[0].quality).toEqual(0);
       });
     });
-
   });
-
 });
