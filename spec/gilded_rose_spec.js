@@ -65,6 +65,34 @@ describe("Gilded Rose", function () {
       expect(items[0].quality).toEqual(80);
       expect(items[0].sellIn).toEqual(2);
     });
+
+    describe("Backstage passes", function () {
+      it("should increase the quality of Backstage Passes as sellIn value decreases", function () {
+        items.push(new Item("Backstage passes to a TAFKAL80ETC concert", 11, 0));
+        updateQuality();
+        expect(items[0].quality).toEqual(1);
+      });
+      it("should increase the quality of Backstage Passes by 2 when sellIn value is 10 days or less", function () {
+        items.push(new Item("Backstage passes to a TAFKAL80ETC concert", 10, 0));
+        items.push(new Item("Backstage passes to a TAFKAL80ETC concert", 9, 0));
+        updateQuality();
+        expect(items[0].quality).toEqual(2);
+        expect(items[1].quality).toEqual(2);
+      });
+      it("should increase the quality of Backstage Passes by 3 when sellIn value is 5 days or less", function () {
+        items.push(new Item("Backstage passes to a TAFKAL80ETC concert", 5, 0));
+        items.push(new Item("Backstage passes to a TAFKAL80ETC concert", 4, 0));
+        updateQuality();
+        expect(items[0].quality).toEqual(3);
+        expect(items[1].quality).toEqual(3);
+      });
+      it("should drop the quality to 0 after the concert", function() {
+        items.push(new Item("Backstage passes to a TAFKAL80ETC concert", 0, 5));
+        updateQuality();
+        expect(items[0].quality).toEqual(0);
+      });
+    });
+
   });
 
 });
