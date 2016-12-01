@@ -55,7 +55,7 @@ function updateQuality() {
 }
 
 module.exports = {
-  item: Item,
+  Item: Item,
   items: items, 
   updateQuality: updateQuality
 };
