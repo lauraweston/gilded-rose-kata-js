@@ -4,28 +4,28 @@ function Item(name, sellIn, quality) {
   this.quality = quality;
 }
 
+Item.prototype.incrementQuality = function() {
+  this.quality += 1;
+}
+
+Item.prototype.decrementQuality = function() {
+  this.quality -= 1;
+}
+
 var items = []
-
-function incrementQuality(item) {
-  item.quality += 1;
-}
-
-function decrementQuality(item) {
-  item.quality -= 1;
-}
 
 var itemUpdateFunctions = {
   "Aged Brie": function (item) {
     if (item.quality < 50) {
-      incrementQuality(item);
+      item.incrementQuality();
     }
     item.sellIn -= 1;
   },
   "Backstage passes to a TAFKAL80ETC concert": function (item) {
     if (item.quality < 50) {
-      incrementQuality(item);
-      if (item.sellIn < 11 && item.quality < 50) incrementQuality(item);
-      if (item.sellIn < 6 && item.quality < 50) incrementQuality(item);
+      item.incrementQuality();
+      if (item.sellIn < 11 && item.quality < 50) item.incrementQuality();
+      if (item.sellIn < 6 && item.quality < 50) item.incrementQuality();
     }
     item.sellIn -= 1;
     if (item.sellIn < 0) item.quality = 0;
@@ -35,12 +35,12 @@ var itemUpdateFunctions = {
 
 function updateStandardItem(item) {
   if (item.quality > 0) {
-    decrementQuality(item);
+    item.decrementQuality();
   }
 
   item.sellIn -= 1;
   if (item.sellIn < 0 && item.quality > 0) {
-    decrementQuality(item);
+    item.decrementQuality();
   }
 }
 
