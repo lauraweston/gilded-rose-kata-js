@@ -35,15 +35,11 @@ function updateQuality() {
       item.sellIn -= 1;
     }
     if (item.sellIn < 0) {
-      if (item.name != brie) {
-        if (item.name != backstagePass) {
-          if (item.quality > 0 && item.name != sulfuras) decrementQuality(item);
-        } else {
-          item.quality = 0; 
-        }
-      } else {
+      if (item.name == brie) {
         if (item.quality < 50) incrementQuality(item);
       }
+      if (item.name == backstagePass) item.quality = 0;
+      if (item.quality > 0 && item.name != sulfuras) decrementQuality(item);
     }
   });
 }

@@ -54,9 +54,10 @@ describe("Gilded Rose", function () {
 
     describe("Aged Brie", function () {
       it("should increase the quality of Aged Brie as it gets older", function () {
-        items.push(new Item("Aged Brie", 2, 0));
+        items.push(new Item("Aged Brie", 0, 0));
         updateQuality();
         expect(items[0].quality).toEqual(1);
+        expect(items[0].sellIn).toEqual(-1);
       });
       it("should not allow an item to have a quality value greater than 50", function () {
         items.push(new Item("Aged Brie", 2, 50));
