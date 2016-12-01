@@ -10,10 +10,8 @@ Item.prototype.incrementQuality = function () {
   }
 }
 
-Item.prototype.decrementQuality = function () {
-  if (this.quality > 0) {
-    this.quality--;
-  }
+Item.prototype.decrementQuality = function (number) {
+  this.quality = Math.max(0, this.quality - number);
 }
 
 Item.prototype.decrementSellIn = function () {
@@ -24,8 +22,7 @@ var items = []
 
 var itemUpdateFunctions = {
   "Conjured Mana Cake": function(item) {
-    item.decrementQuality();
-    item.decrementQuality();
+    item.decrementQuality(2);
     item.decrementSellIn();
   },
   "Aged Brie": function(item) {
@@ -43,10 +40,11 @@ var itemUpdateFunctions = {
 };
 
 function updateStandardItem(item) {
-  item.decrementQuality();
   item.decrementSellIn();
   if (item.sellIn < 0) {
-    item.decrementQuality();
+    item.decrementQuality(2);
+  } else {
+    item.decrementQuality(1);
   }
 }
 
