@@ -43,6 +43,12 @@ describe("Gilded Rose", function () {
       updateQuality();
       expect(items[0].quality).toEqual(3);
     });
+
+    it("should not allow the quality value to be negative", function() {
+      items.push(new Item("foo", 0, 0));
+      updateQuality();
+      expect(items[0].quality).toEqual(0);
+    });
   });
 
 });
