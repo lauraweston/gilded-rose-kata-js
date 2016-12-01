@@ -32,7 +32,7 @@ function updateQuality() {
     }
 
     if (item.name != sulfuras) {
-      item.sellIn = item.sellIn - 1;
+      item.sellIn -= 1;
     }
     if (item.sellIn < 0) {
       if (item.name != brie) {
