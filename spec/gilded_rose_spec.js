@@ -86,19 +86,19 @@ describe("Gilded Rose", function () {
     });
 
     describe("Backstage passes", function () {
-      it("should increase the quality of Backstage Passes as sellIn value decreases", function () {
+      it("should increase the quality as sellIn value decreases", function () {
         items.push(new Item("Backstage passes to a TAFKAL80ETC concert", 11, 0));
         updateQuality();
         expect(items[0].quality).toEqual(1);
       });
-      it("should increase the quality of Backstage Passes by 2 when sellIn value is 10 days or less", function () {
+      it("should increase the quality by 2 when sellIn value is 10 days or less", function () {
         items.push(new Item("Backstage passes to a TAFKAL80ETC concert", 10, 0));
         items.push(new Item("Backstage passes to a TAFKAL80ETC concert", 9, 0));
         updateQuality();
         expect(items[0].quality).toEqual(2);
         expect(items[1].quality).toEqual(2);
       });
-      it("should increase the quality of Backstage Passes by 3 when sellIn value is 5 days or less", function () {
+      it("should increase the quality by 3 when sellIn value is 5 days or less", function () {
         items.push(new Item("Backstage passes to a TAFKAL80ETC concert", 5, 0));
         items.push(new Item("Backstage passes to a TAFKAL80ETC concert", 4, 0));
         updateQuality();
@@ -110,6 +110,15 @@ describe("Gilded Rose", function () {
         updateQuality();
         expect(items[0].quality).toEqual(0);
         expect(items[0].sellIn).toEqual(-1);
+      });
+    });
+
+    describe("Conjured items", function() {
+      it("should decrease in quality by 2", function() {
+        items.push(new Item("Conjured Mana Cake", 3, 6));
+        updateQuality();
+        expect(items[0].quality).toEqual(4);
+        expect(items[0].sellIn).toEqual(2);
       });
     });
   });

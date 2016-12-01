@@ -23,18 +23,23 @@ Item.prototype.decrementSellIn = function () {
 var items = []
 
 var itemUpdateFunctions = {
-  "Aged Brie": function (item) {
+  "Conjured Mana Cake": function(item) {
+    item.decrementQuality();
+    item.decrementQuality();
+    item.decrementSellIn();
+  },
+  "Aged Brie": function(item) {
     item.incrementQuality();
     item.decrementSellIn();
   },
-  "Backstage passes to a TAFKAL80ETC concert": function (item) {
+  "Backstage passes to a TAFKAL80ETC concert": function(item) {
     item.incrementQuality();
     if (item.sellIn < 11) item.incrementQuality();
     if (item.sellIn < 6) item.incrementQuality();
     item.decrementSellIn();
     if (item.sellIn < 0) item.quality = 0;
   },
-  "Sulfuras, Hand of Ragnaros": function (item) { }
+  "Sulfuras, Hand of Ragnaros": function(item) { }
 };
 
 function updateStandardItem(item) {
