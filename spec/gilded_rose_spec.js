@@ -27,7 +27,7 @@ describe("Gilded Rose", function () {
   });
 
   describe(updateQuality, function () {
-    afterEach(function() {
+    afterEach(function () {
       items.length = 0;
     });
 
@@ -44,20 +44,26 @@ describe("Gilded Rose", function () {
       expect(items[0].quality).toEqual(3);
     });
 
-    it("should not allow the quality value to be negative", function() {
+    it("should not allow the quality value to be negative", function () {
       items.push(new Item("foo", 0, 0));
       updateQuality();
       expect(items[0].quality).toEqual(0);
     });
-    it("should increase the quality of Aged Brie as it gets older", function() {
+    it("should increase the quality of Aged Brie as it gets older", function () {
       items.push(new Item("Aged Brie", 2, 0));
       updateQuality();
       expect(items[0].quality).toEqual(1);
     });
-    it("should not allow an item to have a quality value greater than 50", function() {
+    it("should not allow an item to have a quality value greater than 50", function () {
       items.push(new Item("Aged Brie", 2, 50));
       updateQuality();
       expect(items[0].quality).toEqual(50);
+    });
+    it("should never change the quality or sellIn of Sulfuras", function () {
+      items.push(new Item("Sulfuras, Hand of Ragnaros", 2, 80));
+      updateQuality();
+      expect(items[0].quality).toEqual(80);
+      expect(items[0].sellIn).toEqual(2);
     });
   });
 
