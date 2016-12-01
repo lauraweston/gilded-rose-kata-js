@@ -7,8 +7,8 @@ This Kata was originally created by Terry Hughes (http://twitter.com/#!/TerryHug
 Choose [legacy code] (https://github.com/emilybache/GildedRose-Refactoring-Kata) (translated by Emily Bache) in the language of your choice. The aim is to practice good design in the language of your choice. Refactor the code in such a way that adding the new "conjured" functionality is easy.
 
 ## Set up
-- Clone repo
+- Clone repo and install node
 - Run ```npm install``` to install dependencies
 
 ## Testing
-- Run ```npm test``` to run jasmine specs
+- Use ```npm test``` to run jasmine specs
