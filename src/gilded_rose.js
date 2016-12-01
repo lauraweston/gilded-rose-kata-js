@@ -5,11 +5,15 @@ function Item(name, sellIn, quality) {
 }
 
 Item.prototype.incrementQuality = function() {
-  this.quality += 1;
+  this.quality++;
 }
 
 Item.prototype.decrementQuality = function() {
-  this.quality -= 1;
+  this.quality--;
+}
+
+Item.prototype.decrementSellIn = function() {
+  this.sellIn--;
 }
 
 var items = []
@@ -19,7 +23,7 @@ var itemUpdateFunctions = {
     if (item.quality < 50) {
       item.incrementQuality();
     }
-    item.sellIn -= 1;
+    item.decrementSellIn();
   },
   "Backstage passes to a TAFKAL80ETC concert": function (item) {
     if (item.quality < 50) {
@@ -27,7 +31,7 @@ var itemUpdateFunctions = {
       if (item.sellIn < 11 && item.quality < 50) item.incrementQuality();
       if (item.sellIn < 6 && item.quality < 50) item.incrementQuality();
     }
-    item.sellIn -= 1;
+    item.decrementSellIn();
     if (item.sellIn < 0) item.quality = 0;
   },
   "Sulfuras, Hand of Ragnaros": function(item) {}
@@ -37,8 +41,7 @@ function updateStandardItem(item) {
   if (item.quality > 0) {
     item.decrementQuality();
   }
-
-  item.sellIn -= 1;
+  item.decrementSellIn();
   if (item.sellIn < 0 && item.quality > 0) {
     item.decrementQuality();
   }
