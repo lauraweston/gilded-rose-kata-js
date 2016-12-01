@@ -19,27 +19,34 @@ function updateQuality() {
     var brie = "Aged Brie";
     var backstagePass = "Backstage passes to a TAFKAL80ETC concert";
     var sulfuras = "Sulfuras, Hand of Ragnaros";
-    if (item.name == brie || item.name == backstagePass) {
+    
+    if (item.name == brie) {
       if (item.quality < 50) {
         incrementQuality(item);
-        if (item.name == backstagePass) {
-          if (item.sellIn < 11 && item.quality < 50) incrementQuality(item);
-          if (item.sellIn < 6 && item.quality < 50) incrementQuality(item);
-        }
       }
-    } else if (item.quality > 0 && item.name != sulfuras) {
+      item.sellIn -= 1;
+      return;
+    }
+    if (item.name == backstagePass) {
+      if (item.quality < 50) {
+        incrementQuality(item);
+        if (item.sellIn < 11 && item.quality < 50) incrementQuality(item);
+        if (item.sellIn < 6 && item.quality < 50) incrementQuality(item);
+      }
+      item.sellIn -= 1;
+      if (item.sellIn < 0) item.quality = 0;
+      return;
+    }
+    if (item.name == sulfuras) {
+      return;
+    }
+    if (item.quality > 0) {
       decrementQuality(item);
     }
 
-    if (item.name != sulfuras) {
-      item.sellIn -= 1;
-    }
-    if (item.sellIn < 0) {
-      if (item.name == brie) {
-        if (item.quality < 50) incrementQuality(item);
-      }
-      if (item.name == backstagePass) item.quality = 0;
-      if (item.quality > 0 && item.name != sulfuras) decrementQuality(item);
+    item.sellIn -= 1;
+    if (item.sellIn < 0 && item.quality > 0) {
+      decrementQuality(item);
     }
   });
 }
