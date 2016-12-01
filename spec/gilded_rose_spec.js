@@ -63,6 +63,16 @@ describe("Gilded Rose", function () {
         updateQuality();
         expect(items[0].quality).toEqual(50);
       });
+      it("should decrease the sellIn value by 1", function() {
+        items.push(new Item("Aged Brie", 2, 50));
+        updateQuality();
+        expect(items[0].sellIn).toEqual(1);
+      });
+      it("should decrease the sellIn value by 1 once sell by date has passed", function() {
+        items.push(new Item("Aged Brie", 0, 50));
+        updateQuality();
+        expect(items[0].sellIn).toEqual(-1);
+      });
     });
 
     describe("Sulfuras", function () {
@@ -98,6 +108,7 @@ describe("Gilded Rose", function () {
         items.push(new Item("Backstage passes to a TAFKAL80ETC concert", 0, 5));
         updateQuality();
         expect(items[0].quality).toEqual(0);
+        expect(items[0].sellIn).toEqual(-1);
       });
     });
   });
