@@ -1,6 +1,7 @@
 var gildedRose = require("../src/gilded_rose.js");
-var Item = gildedRose.item
-var updateQuality = gildedRose.updateQuality
+var Item = gildedRose.item;
+var items = gildedRose.items;
+var updateQuality = gildedRose.updateQuality;
 
 describe("Gilded Rose", function () {
   var testCases = [
@@ -25,10 +26,11 @@ describe("Gilded Rose", function () {
     });
   });
 
-  it("should foo", function () {
-    var items = [new Item("foo", 0, 0)];
+  it("should decrease sellIn and quality values by 1", function () {
+    items.push(new Item("foo", 5, 5));
     updateQuality();
-    expect(items[0].name).toEqual("foo");
+    expect(items[0].quality).toEqual(4);
+    expect(items[0].sellIn).toEqual(4);
   });
 
 });
